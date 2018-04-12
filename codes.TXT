@@ -1,0 +1,51 @@
+(deffacts initial-Candy
+   (Candy choose-sweet))
+
+(defrule player-select
+   (Candy choose-sweet) ; control pattern
+   =>
+   (printout t "Select type of sweet you like (Cadbury eclairs: c "
+               "Smoothies: s)? ")
+   (assert (Candy-select (read))))
+
+(defrule good-candy-choice
+   ?phase <- (phase choose-candy)
+   ?choice <- (candy-select ?candy&c | h)
+   =>
+   (retract ?phase ?choice)
+   (assert (player-move ?player)))
+
+(defrule bad-player-choice    ; if bad, then back to previous page
+   ?phase <- (phase choose-candy)
+   ?choice <- (candy-select ?candy~c&~h)
+   =>
+   (retract ?phase ?choice)
+   (assert (phase choose-candy))
+   (printout t "Choose c or s only." crlf)
+   )
+====================================================
+(deffacts initial-phase
+   (phase choose-player))
+
+(defrule player-select
+   (phase choose-player) ; control pattern
+   =>
+   (printout t "Who moves first (Computer: c "
+               "Human: h)? ")
+   (assert (player-select (read))))
+
+(defrule good-player-choice
+   ?phase <- (phase choose-player)
+   ?choice <- (player-select ?player&c | h)
+   =>
+   (retract ?phase ?choice)
+   (assert (player-move ?player)))
+
+(defrule bad-player-choice    ; if bad, then back to previous page
+   ?phase <- (phase choose-player)
+   ?choice <- (player-select ?player&~c&~h)
+   =>
+   (retract ?phase ?choice)
+   (assert (phase choose-player))
+   (printout t "Choose c or h only." crlf)
+======================================================
