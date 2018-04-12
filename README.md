@@ -1,0 +1,2 @@
+# Vending_Machine
+This is a teamwork exercise.  Start with the FSM given in Figure 3.5 of the textbook (on page 101) The team should have a Git repository where code can be contributed by members. (e.g. on bitbucket or github) The repository must contain: Documentation, e.g. problem statement, diagrams, planning documents, end user documentation CLIPS source code Only one member of the team must submit the URL of the repository as submission for this assignment.
